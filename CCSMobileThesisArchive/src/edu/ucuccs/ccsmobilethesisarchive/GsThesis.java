@@ -1,25 +1,41 @@
 package edu.ucuccs.ccsmobilethesisarchive;
 
 public class GsThesis {
-
-	private String title;
-	private String researcher;
-	private String adviser;
-	private String year;
-	private String abs;
+	int id;
+	String title;
+	String researcher;
+	String adviser;
+	String year;
+	String abs;
 
 	public GsThesis() {
+
 	}
 
-	public GsThesis(String title, String researcher, String adviser,
+	public GsThesis(int id, String title, String researcher, String adviser,
 			String year, String abs) {
-		super();
+		this.id = id;
 		this.title = title;
 		this.researcher = researcher;
 		this.adviser = adviser;
 		this.year = year;
 		this.abs = abs;
+	}
+	public GsThesis(String title, String researcher, String adviser,
+			String year, String abs) {
+		this.title = title;
+		this.researcher = researcher;
+		this.adviser = adviser;
+		this.year = year;
+		this.abs = abs;
+	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -62,5 +78,4 @@ public class GsThesis {
 		this.abs = abs;
 	}
 
-	
 }
