@@ -15,7 +15,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/reseacher"
+            android:id="@+id/researcher"
             android:layout_width="200dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"

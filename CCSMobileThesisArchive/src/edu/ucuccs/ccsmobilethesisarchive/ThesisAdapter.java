@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class ThesisAdapter extends ArrayAdapter<GsThesis> {
 
-	ArrayList<GsThesis> booklist;
+	ArrayList<GsThesis> thesislist;
 	LayoutInflater vi;
 	int Resource;
 	ViewHolder holder;
@@ -20,7 +20,7 @@ public class ThesisAdapter extends ArrayAdapter<GsThesis> {
 		super(context, resource, objects);
 		vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		Resource = resource;
-		booklist = objects;
+		thesislist = objects;
 	}
 
 	@Override
@@ -31,14 +31,14 @@ public class ThesisAdapter extends ArrayAdapter<GsThesis> {
 			holder = new ViewHolder();
 			v = vi.inflate(Resource, null);
 			holder.title = (TextView) v.findViewById(R.id.title);
-			holder.reseacher = (TextView) v.findViewById(R.id.reseacher);
+			holder.reseacher = (TextView) v.findViewById(R.id.researcher);
 			v.setTag(holder);
 		} else {
 			holder = (ViewHolder) v.getTag();
 		}
 
-		holder.title.setText(booklist.get(position).getTitle());
-		holder.reseacher.setText(booklist.get(position).getResearcher());
+		holder.title.setText(thesislist.get(position).getTitle());
+		holder.reseacher.setText(thesislist.get(position).getResearcher());
 
 		return v;
 
