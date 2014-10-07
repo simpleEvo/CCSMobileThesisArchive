@@ -8,7 +8,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class DBADapter extends SQLiteOpenHelper {
 
@@ -22,7 +21,6 @@ public class DBADapter extends SQLiteOpenHelper {
 	private static final String FIELD_ADVISER = "thesis_adviser";
 	private static final String FIELD_YEAR = "thesis_year";
 	private static final String FIELD_ABSTRACT = "thesis_abstract";
-
 	public DBADapter(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
@@ -86,25 +84,82 @@ public class DBADapter extends SQLiteOpenHelper {
 		return itemList;
 	}
 
-	public GsThesis findThesis(String thesistitle) {
-		String query = "Select * FROM " + TABLE_NAME + " WHERE " + FIELD_TITLE + " =  \"" + thesistitle + "\"";
-		
-		SQLiteDatabase db = this.getWritableDatabase();
-		
-		Cursor cursor = db.rawQuery(query, null);
-		
-		GsThesis thesis = new GsThesis();
-		
-		if (cursor.moveToFirst()) {
-			cursor.moveToFirst();
-			thesis.setId(Integer.parseInt(cursor.getString(0)));
-			thesis.setTitle(cursor.getString(1));
-			thesis.setResearcher(cursor.getString(2));
-			cursor.close();
-		} else {
-			thesis = null;
-		}
-	        db.close();
-		return thesis;
-	}
+	public List<GsThesis> findTitle(String searchTerm) {
+		 
+        List<GsThesis> recordsList = new ArrayList<GsThesis>();
+ 
+        // select query
+        String sql = "";
+        sql += "SELECT * FROM " + TABLE_NAME;
+        sql += " WHERE " + FIELD_TITLE + " LIKE '%" + searchTerm + "%'";
+        sql += " ORDER BY " + FIELD_TITLE + " DESC";
+ 
+        SQLiteDatabase db = this.getWritableDatabase();
+ 
+        // execute the query
+        Cursor cursor = db.rawQuery(sql, null);
+ 
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+ 
+                // int productId = Integer.parseInt(cursor.getString(cursor.getColumnIndex(fieldProductId)));
+            	GsThesis listitem = new GsThesis();
+				listitem.setId(Integer.parseInt(cursor.getString(0)));
+				listitem.setTitle(cursor.getString(1));
+				listitem.setResearcher(cursor.getString(2));
+				listitem.setAdviser(cursor.getString(3));
+				listitem.setYear(cursor.getString(4));
+				listitem.setAbs(cursor.getString(5));
+				recordsList.add(listitem);
+ 
+                // add to list
+            } while (cursor.moveToNext());
+        }
+ 
+        cursor.close();
+        db.close();
+ 
+        // return the list of records
+        return recordsList;
+    }
+	public List<GsThesis> findResearcher(String searchTerm) {
+		 
+        List<GsThesis> recordsList = new ArrayList<GsThesis>();
+ 
+        // select query
+        String sql = "";
+        sql += "SELECT * FROM " + TABLE_NAME;
+        sql += " WHERE " + FIELD_RESEARCHER + " LIKE '%" + searchTerm + "%'";
+        sql += " ORDER BY " + FIELD_TITLE + " DESC";
+ 
+        SQLiteDatabase db = this.getWritableDatabase();
+ 
+        // execute the query
+        Cursor cursor = db.rawQuery(sql, null);
+ 
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+ 
+                // int productId = Integer.parseInt(cursor.getString(cursor.getColumnIndex(fieldProductId)));
+            	GsThesis listitem = new GsThesis();
+				listitem.setId(Integer.parseInt(cursor.getString(0)));
+				listitem.setTitle(cursor.getString(1));
+				listitem.setResearcher(cursor.getString(2));
+				listitem.setAdviser(cursor.getString(3));
+				listitem.setYear(cursor.getString(4));
+				listitem.setAbs(cursor.getString(5));
+				recordsList.add(listitem);
+ 
+                // add to list
+            } while (cursor.moveToNext());
+        }
+ 
+        cursor.close();
+        db.close();
+ 
+        // return the list of records
+        return recordsList;
+    }
 }
