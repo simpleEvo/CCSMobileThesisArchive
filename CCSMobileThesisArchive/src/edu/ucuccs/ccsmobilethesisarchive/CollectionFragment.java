@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -39,10 +40,12 @@ public class CollectionFragment extends Fragment {
 	ListView lstview;
 	ArrayList<GsThesis> thesislist;
 	ThesisAdapter adapter;
+	String x, thesis_id;
 
 	String[] from = new String[] { "title", "researcher" };
 	int[] to = new int[] { R.id.title, R.id.researcher };
-
+	int rated = 0;
+	double frated = 0;
 	DBADapter db;
 
 	@Override
@@ -76,6 +79,7 @@ public class CollectionFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
+				String tid = thesislist.get(position).getId();
 				String title = thesislist.get(position).getTitle();
 				String researcher = thesislist.get(position).getResearcher();
 				String adviser = thesislist.get(position).getAdviser();
@@ -83,6 +87,7 @@ public class CollectionFragment extends Fragment {
 				String abs = thesislist.get(position).getAbs();
 
 				Intent intent = new Intent(getActivity(), Abstracts.class);
+				intent.putExtra("id", tid);
 				intent.putExtra("title", title);
 				intent.putExtra("researcher", researcher);
 				intent.putExtra("adviser", adviser);
@@ -124,6 +129,7 @@ public class CollectionFragment extends Fragment {
 	public void updateThesis() {
 		db.DropTable();
 		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Thesis");
+		query.addAscendingOrder("title");
 		query.findInBackground(new FindCallback<ParseObject>() {
 
 			@Override
@@ -133,16 +139,55 @@ public class CollectionFragment extends Fragment {
 					Date today = listahan.get(i).getDate("year");
 					SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
 					String year = formatter.format(today);
-					db.addThesis(new GsThesis(listahan.get(i)
-							.getString("title"), listahan.get(i).getString(
-							"researcher"),
-							listahan.get(i).getString("adviser"), year,
-							listahan.get(i).getString("abstract")));
+					db.addThesis(new GsThesis(listahan.get(i).getObjectId(),
+							listahan.get(i).getString("title"), listahan.get(i)
+									.getString("researcher"), listahan.get(i)
+									.getString("adviser"), year, listahan
+									.get(i).getString("abstract")));
+
+					x = listahan.get(i).getObjectId();
+					
+					List<GsRate> listThesisId = db.findThesisId(x);
+					Toast.makeText(getActivity(), listThesisId.size() + "", Toast.LENGTH_SHORT)
+					.show();
+					if(listThesisId.size() == 0) {
+						updateRate(x);
+					} else {
+						
+					}
 				}
 
 			}
 
 		});
+
+	}
+
+	public void updateRate(final String x) {
+		
+		ParseQuery<ParseObject> query1 = new ParseQuery<ParseObject>("Rating");
+		query1.whereNotEqualTo("thesis_id", x);
+		query1.findInBackground(new FindCallback<ParseObject>() {
+
+			@Override
+			public void done(List<ParseObject> rate, ParseException arg1) {
+				frated = 0;
+				rated = 0;
+				for (int c = 0; c < rate.size(); c++) {
+					rated = rated + rate.get(c).getInt("rate");
+				}
+				frated = rated / rate.size();
+				Toast.makeText(getActivity(), frated + "", Toast.LENGTH_LONG)
+						.show();
+			
+					db.addRate(new GsRate(rate.get(0).getString("thesis_id"),
+							frated + ""));
+			
+			
+				
+			}
+		});
+		
 	}
 
 	@Override
@@ -163,16 +208,16 @@ public class CollectionFragment extends Fragment {
 			public boolean onQueryTextChange(String query) {
 				thesislist.clear();
 				List<GsThesis> listTitle = db.findTitle(query);
-				List<GsThesis> listResearcher = db.findResearcher(query);
 
-				if (listTitle.size() == 0 && listResearcher.size() == 0) {
+				if (listTitle.size() == 0) {
 					Toast.makeText(getActivity(),
-							"You enter a word doesnt exist!", Toast.LENGTH_LONG)
+							"You enter a word doesnt exist!", Toast.LENGTH_SHORT)
 							.show();
 					populatelist();
 				} else if (listTitle.size() > 0) {
 					for (int i = 0; i < listTitle.size(); i++) {
 						GsThesis thesis = new GsThesis();
+						thesis.setId(listTitle.get(i).id.toString());
 						thesis.setTitle(listTitle.get(i).title.toString());
 						thesis.setResearcher(listTitle.get(i).researcher
 								.toString());
@@ -193,42 +238,20 @@ public class CollectionFragment extends Fragment {
 								});
 					}
 
-				} else if (listResearcher.size() > 0) {
-					for (int i = 0; i < listResearcher.size(); i++) {
-						GsThesis thesis = new GsThesis();
-						thesis.setTitle(listResearcher.get(i).title.toString());
-						thesis.setResearcher(listResearcher.get(i).researcher
-								.toString());
-						thesis.setAdviser(listResearcher.get(i).adviser.toString());
-						thesis.setYear(listResearcher.get(i).year.toString());
-						thesis.setAbs(listResearcher.get(i).abs.toString());
-						thesislist.add(thesis);
-
-						Collections.sort(thesislist,
-								new Comparator<GsThesis>() {
-									@Override
-									public int compare(GsThesis lhs,
-											GsThesis rhs) {
-										return lhs.getTitle().compareTo(
-												rhs.getTitle());
-									}
-
-								});
-					}
-				} else if(query == null || query == ""){
+				}  else if (query == null || query == "") {
 					Toast.makeText(getActivity(),
 							"Please Enter any keyword(s)!", Toast.LENGTH_LONG)
 							.show();
 					populatelist();
 				}
 				adapter.notifyDataSetChanged();
-				
+
 				return false;
 			}
 
 			@Override
 			public boolean onQueryTextSubmit(String query) {
-				
+
 				return false;
 
 			}

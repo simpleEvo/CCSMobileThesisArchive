@@ -29,15 +29,19 @@ public final class R {
         public static final int ic_search=0x7f020001;
     }
     public static final class id {
-        public static final int abs=0x7f090004;
-        public static final int action_search=0x7f09000a;
-        public static final int action_settings=0x7f090009;
+        public static final int abs=0x7f090005;
+        public static final int action_search=0x7f09000e;
+        public static final int action_settings=0x7f09000d;
         public static final int adviser=0x7f090002;
-        public static final int imageView1=0x7f090007;
-        public static final int listView1=0x7f090006;
-        public static final int pager=0x7f090005;
+        public static final int desc=0x7f090004;
+        public static final int imageView1=0x7f09000b;
+        public static final int listView1=0x7f09000a;
+        public static final int pager=0x7f090009;
+        public static final int rate=0x7f090008;
+        public static final int rating=0x7f090006;
+        public static final int ratingBar=0x7f090007;
         public static final int researcher=0x7f090001;
-        public static final int textView1=0x7f090008;
+        public static final int textView1=0x7f09000c;
         public static final int title=0x7f090000;
         public static final int year=0x7f090003;
     }
@@ -61,9 +65,12 @@ public final class R {
         public static final int action_settings=0x7f060003;
         public static final int app_name=0x7f060000;
         public static final int cmta=0x7f060001;
+        public static final int desc=0x7f06000c;
         public static final int goal=0x7f060007;
         public static final int hello_world=0x7f060002;
         public static final int mission=0x7f060006;
+        public static final int rate=0x7f06000e;
+        public static final int rating=0x7f06000d;
         public static final int title_activity_abstract_fragment=0x7f06000a;
         public static final int title_activity_abstracts=0x7f06000b;
         public static final int title_activity_faqsfragment=0x7f060008;

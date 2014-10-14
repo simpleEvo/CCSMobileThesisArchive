@@ -13,5 +13,8 @@
     <string name="action_search">Search..</string>
     <string name="title_activity_abstract_fragment">AbstractFragment</string>
     <string name="title_activity_abstracts">Abstracts</string>
+    <string name="desc">Abstract</string>
+    <string name="rating">Rating</string>
+    <string name="rate">Rate this thesis</string>
 
 </resources>

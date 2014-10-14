@@ -1,7 +1,7 @@
 package edu.ucuccs.ccsmobilethesisarchive;
 
 public class GsThesis {
-	int id;
+	String id;
 	String title;
 	String researcher;
 	String adviser;
@@ -12,7 +12,7 @@ public class GsThesis {
 
 	}
 
-	public GsThesis(int id, String title, String researcher, String adviser,
+	public GsThesis(String id, String title, String researcher, String adviser,
 			String year, String abs) {
 		this.id = id;
 		this.title = title;
@@ -30,11 +30,11 @@ public class GsThesis {
 		this.abs = abs;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -77,5 +77,7 @@ public class GsThesis {
 	public void setAbs(String abs) {
 		this.abs = abs;
 	}
+
+
 
 }

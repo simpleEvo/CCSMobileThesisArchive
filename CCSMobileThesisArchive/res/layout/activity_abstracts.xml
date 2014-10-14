@@ -17,36 +17,78 @@
             android:id="@+id/title"
             android:layout_width="300dip"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dip"
+            android:layout_marginRight="5dip"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/researcher"
             android:layout_width="300dip"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dip"
-            android:textSize="20sp" />
+            android:layout_marginRight="5dip"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/adviser"
             android:layout_width="300dip"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dip"
-            android:textSize="20sp" />
+            android:layout_marginRight="5dip"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/year"
             android:layout_width="300dip"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dip"
-            android:textSize="20sp" />
+            android:layout_marginRight="5dip"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="10dip"
+            android:padding="10dip"
+            android:text="@string/desc"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/abs"
             android:layout_width="300dip"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dip"
-            android:textSize="15sp" />
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="10dip"
+            android:padding="10dip"
+            android:text="@string/rating"
+            android:textSize="17sp" />
+ <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0.0"
+            android:stepSize="0.5" />
+
+         <TextView
+            android:id="@+id/rate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:layout_marginBottom="15dip"
+            android:layout_marginLeft="10dip"
+            android:textSize="20sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>
