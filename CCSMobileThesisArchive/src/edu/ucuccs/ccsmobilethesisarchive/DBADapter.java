@@ -236,4 +236,47 @@ public class DBADapter extends SQLiteOpenHelper {
 		db.insert(TABLE_RAC, null, values);
 		db.close();
 	}
+	
+	
+	public List<GsRac> findTID(String searchTerm) {
+
+		List<GsRac> recordsList = new ArrayList<GsRac>();
+
+		// select query
+		String sql = "";
+		sql += "SELECT * FROM " + TABLE_RAC;
+		sql += " WHERE " + FIELD_RACTID + " LIKE '%" + searchTerm + "%'";
+		sql += " ORDER BY " + FIELD_RACRATE + " DESC";
+
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		// execute the query
+		Cursor cursor = db.rawQuery(sql, null);
+
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst()) {
+			do {
+
+				// int productId =
+				// Integer.parseInt(cursor.getString(cursor.getColumnIndex(fieldProductId)));
+				GsRac listitem = new GsRac();
+				listitem.setRac_id(Integer.parseInt(cursor.getString(0)));
+				listitem.setRac_fname(cursor.getString(1));
+				listitem.setRac_lname(cursor.getString(2));
+				listitem.setRac_rate(cursor.getString(3));
+				listitem.setRac_comment(cursor.getString(4));
+				listitem.setRac_uid(cursor.getString(5));
+				listitem.setRac_tid(cursor.getString(6));
+				recordsList.add(listitem);
+
+				// add to list
+			} while (cursor.moveToNext());
+		}
+
+		cursor.close();
+		db.close();
+
+		// return the list of records
+		return recordsList;
+	}
 }

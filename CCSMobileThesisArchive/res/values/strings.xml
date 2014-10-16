@@ -29,5 +29,6 @@
     <string name="no">no</string>
     <string name="yes">Yes</string>
     <string name="rac">Rating and Comments</string>
+    <string name="flname">Full Name</string>
 
 </resources>

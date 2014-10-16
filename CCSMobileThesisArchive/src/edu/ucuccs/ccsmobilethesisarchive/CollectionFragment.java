@@ -7,9 +7,11 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,15 +36,15 @@ import com.parse.ParseQuery;
 public class CollectionFragment extends Fragment {
 	public CollectionFragment() {
 	}
-
+	ProgressDialog mProgressDialog;
 	final String APPLICATION_ID = "BAlnxVkeOecfO5yzZVpjokXpXqpJJpyhB8Y1ircf";
 	final String CLIENT_KEY = "aCd3DFv5bgHscrNZ7vku9B6y5JW051XFxvFNK1rT";
 	ListView lstview;
 	ArrayList<GsThesis> thesislist;
 	ThesisAdapter adapter;
 	String x, thesis_id;
-	String racfname = "";
-	String raclname = "";
+	String racfname = "FF";
+	String raclname = "LL";
 
 	String[] from = new String[] { "title", "researcher" };
 	int[] to = new int[] { R.id.title, R.id.researcher };
@@ -75,6 +77,7 @@ public class CollectionFragment extends Fragment {
 			Toast.makeText(getActivity(), "Thesis Updated!", Toast.LENGTH_SHORT)
 					.show();
 		}
+		
 
 		lstview.setOnItemClickListener(new OnItemClickListener() {
 
@@ -170,9 +173,10 @@ public class CollectionFragment extends Fragment {
 			public void done(List<ParseObject> rate, ParseException arg1) {
 				frated = 0;
 				rated = 0;
+				
 				for (int c = 0; c < rate.size(); c++) {
-					db.addRate(new GsRac(racfname, raclname, rate.get(c)
-							.getInt("rate"), rate.get(c).getString("comment"),
+					String reet = rate.get(c).getInt("rate")+"";
+					db.addRate(new GsRac(racfname, raclname, reet, rate.get(c).getString("comment"),
 							rate.get(c).getString("user_id"), rate.get(c).getString("thesis_id")));
 				}
 				
@@ -181,7 +185,98 @@ public class CollectionFragment extends Fragment {
 		});
 
 	}
+	 private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
+		 @Override
+	        protected void onPreExecute() {
+	            super.onPreExecute();
+	            // Create a progressdialog
+	            mProgressDialog = new ProgressDialog(getActivity());
+	            // Set progressdialog title
+	            mProgressDialog.setTitle("Parse.com Custom ListView Tutorial");
+	            // Set progressdialog message
+	            mProgressDialog.setMessage("Loading...");
+	            mProgressDialog.setIndeterminate(false);
+	            // Show progressdialog
+	            mProgressDialog.show();
+	        }
 
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			db.DropTable();
+			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Thesis");
+			query.addAscendingOrder("title");
+			query.findInBackground(new FindCallback<ParseObject>() {
+
+				@Override
+				public void done(List<ParseObject> listahan,
+						com.parse.ParseException arg1) {
+					for (int i = 0; i < listahan.size(); i++) {
+						Date today = listahan.get(i).getDate("year");
+						SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+						String year = formatter.format(today);
+						db.addThesis(new GsThesis(listahan.get(i).getObjectId(),
+								listahan.get(i).getString("title"), listahan.get(i)
+										.getString("researcher"), listahan.get(i)
+										.getString("adviser"), year, listahan
+										.get(i).getString("abstract")));
+
+						x = listahan.get(i).getObjectId();
+
+					
+					}
+
+				}
+
+			});
+			
+			ParseQuery<ParseObject> query1 = new ParseQuery<ParseObject>("Rating");
+			query1.findInBackground(new FindCallback<ParseObject>() {
+
+				@Override
+				public void done(List<ParseObject> rate, ParseException arg1) {
+					frated = 0;
+					rated = 0;
+					
+					for (int c = 0; c < rate.size(); c++) {
+						String reet = rate.get(c).getInt("rate")+"";
+						db.addRate(new GsRac(racfname, raclname, reet, rate.get(c).getString("comment"),
+								rate.get(c).getString("user_id"), rate.get(c).getString("thesis_id")));
+					}
+					
+
+				}
+			});
+			
+			return null;
+		}
+		 @Override
+	        protected void onPostExecute(Void result) {
+			 List<GsThesis> list = db.getThesisList();
+				for (int i = 0; i < list.size(); i++) {
+					GsThesis thesis = new GsThesis();
+					thesis.setId(list.get(i).id.toString());
+					thesis.setTitle(list.get(i).title.toString());
+					thesis.setResearcher(list.get(i).researcher.toString());
+					thesis.setAdviser(list.get(i).adviser.toString());
+					thesis.setYear(list.get(i).year.toString());
+					thesis.setAbs(list.get(i).abs.toString());
+					thesislist.add(thesis);
+
+					Collections.sort(thesislist, new Comparator<GsThesis>() {
+						@Override
+						public int compare(GsThesis lhs, GsThesis rhs) {
+							return lhs.getTitle().compareTo(rhs.getTitle());
+						}
+
+					});
+				}
+				mProgressDialog.dismiss();
+				adapter.notifyDataSetChanged();
+				
+	        }
+		 
+		 
+	 };
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.search_view, menu);

@@ -4,7 +4,7 @@ public class GsRac {
 	int rac_id;
 	String rac_fname;
 	String rac_lname;
-	int rac_rate;
+	String rac_rate;
 	String rac_comment;
 	String rac_uid;
 	String rac_tid;
@@ -13,8 +13,8 @@ public class GsRac {
 
 	}
 
-	public GsRac(String rac_fname, String rac_lname, int rac_rate,
-			String rac_comment, String rac_uid, String rac_tid) {
+	public GsRac(String rac_fname, String rac_lname, String rac_comment,
+			String rac_rate, String rac_uid, String rac_tid) {
 		this.rac_fname = rac_fname;
 		this.rac_lname = rac_lname;
 		this.rac_rate = rac_rate;
@@ -23,8 +23,8 @@ public class GsRac {
 		this.rac_tid = rac_tid;
 	}
 
-	public GsRac(int rac_id, String rac_fname, String rac_lname, int rac_rate,
-			String rac_comment, String rac_uid, String rac_tid) {
+	public GsRac(int rac_id, String rac_fname, String rac_lname,
+			String rac_comment, String rac_rate, String rac_uid, String rac_tid) {
 		this.rac_id = rac_id;
 		this.rac_fname = rac_fname;
 		this.rac_lname = rac_lname;
@@ -58,11 +58,11 @@ public class GsRac {
 		this.rac_lname = rac_lname;
 	}
 
-	public int getRac_rate() {
+	public String getRac_rate() {
 		return rac_rate;
 	}
 
-	public void setRac_rate(int rac_rate) {
+	public void setRac_rate(String rac_rate) {
 		this.rac_rate = rac_rate;
 	}
 

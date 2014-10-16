@@ -29,37 +29,43 @@ public final class R {
         public static final int ic_search=0x7f020001;
     }
     public static final class id {
+        public static final int FLname=0x7f09001b;
         public static final int abs=0x7f090005;
-        public static final int action_search=0x7f090021;
-        public static final int action_settings=0x7f090020;
+        public static final int action_search=0x7f090027;
+        public static final int action_settings=0x7f090026;
         public static final int adviser=0x7f090002;
         public static final int btnRate=0x7f090009;
-        public static final int can=0x7f09001f;
+        public static final int can=0x7f090025;
         public static final int canbtn=0x7f090012;
         public static final int comment=0x7f09000f;
+        public static final int commentlist=0x7f09001f;
         public static final int desc=0x7f090004;
-        public static final int fname=0x7f09001c;
+        public static final int fname=0x7f090022;
         public static final int imageView1=0x7f090014;
         public static final int listView1=0x7f090013;
-        public static final int lname=0x7f09001d;
+        public static final int lname=0x7f090023;
         public static final int login=0x7f090018;
         public static final int lstview=0x7f09000b;
         public static final int no=0x7f09000e;
         public static final int pager=0x7f09000c;
         public static final int password=0x7f090017;
-        public static final int pword=0x7f09001b;
+        public static final int pword=0x7f090021;
         public static final int rac=0x7f09000a;
         public static final int rate=0x7f090008;
+        public static final int ratelist=0x7f09001d;
         public static final int rating=0x7f090006;
         public static final int ratingBar=0x7f090007;
         public static final int ratingBarCustom=0x7f090010;
         public static final int researcher=0x7f090001;
         public static final int savebtn=0x7f090011;
         public static final int signup=0x7f090019;
-        public static final int signupa=0x7f09001e;
+        public static final int signupa=0x7f090024;
         public static final int textView1=0x7f090015;
         public static final int title=0x7f090000;
-        public static final int uname=0x7f09001a;
+        public static final int txtComment=0x7f09001e;
+        public static final int txtFLname=0x7f09001a;
+        public static final int txtRate=0x7f09001c;
+        public static final int uname=0x7f090020;
         public static final int username=0x7f090016;
         public static final int year=0x7f090003;
         public static final int yes=0x7f09000d;
@@ -75,8 +81,9 @@ public final class R {
         public static final int fragment_faqs=0x7f030007;
         public static final int fragment_home=0x7f030008;
         public static final int logindialog=0x7f030009;
-        public static final int row_theses=0x7f03000a;
-        public static final int signupdialog=0x7f03000b;
+        public static final int row_flrc=0x7f03000a;
+        public static final int row_theses=0x7f03000b;
+        public static final int signupdialog=0x7f03000c;
     }
     public static final class menu {
         public static final int abstracts=0x7f080000;
@@ -91,6 +98,7 @@ public final class R {
         public static final int cmta=0x7f060001;
         public static final int comment=0x7f060016;
         public static final int desc=0x7f06000c;
+        public static final int flname=0x7f06001c;
         public static final int fname=0x7f060017;
         public static final int goal=0x7f060007;
         public static final int hello_world=0x7f060002;
