@@ -15,6 +15,7 @@ public class DBADapter extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "db_thesis";
 	private static final String TABLE_NAME = "tb_thesis";
 	private static final String TABLE_RATE = "tb_rate";
+	private static final String TABLE_RAC = "tb_rac";
 
 	private static final String FIELD_ID = "thesis_id";
 	private static final String FIELD_TITLE = "thesis_title";
@@ -25,6 +26,13 @@ public class DBADapter extends SQLiteOpenHelper {
 	private static final String FIELD_RATING = "rate_rating";
 	private static final String FIELD_TID = "rate_thesisid";
 	private static final String FIELD_RID = "rate_id";
+	private static final String FIELD_RAC = "rac_id";
+	private static final String FIELD_RACFNAME = "rac_fname";
+	private static final String FIELD_RACLNAME = "rac_lname";
+	private static final String FIELD_RACCOMMENT = "rac_comment";
+	private static final String FIELD_RACRATE = "rac_rate";
+	private static final String FIELD_RACUID = "rac_uid";
+	private static final String FIELD_RACTID = "rac_tid";
 
 	public DBADapter(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,6 +50,12 @@ public class DBADapter extends SQLiteOpenHelper {
 				+ FIELD_RID + " INTEGER PRIMARY KEY," + FIELD_TID + " TEXT,"
 				+ FIELD_RATING + " TEXT " + ")";
 		db.execSQL(CREATE_LISTRATE_TABLE);
+		String CREATE_RAC_TABLE = "CREATE TABLE " + TABLE_RAC + "(" + FIELD_RAC
+				+ " INTEGER PRIMARY KEY," + FIELD_RACFNAME + " TEXT,"
+				+ FIELD_RACLNAME + " TEXT, " + FIELD_RACCOMMENT + " TEXT, "
+				+ FIELD_RACRATE + " INTEGER, " + FIELD_RACUID + " TEXT, "
+				+ FIELD_RACTID + " TEXT " + ")";
+		db.execSQL(CREATE_RAC_TABLE);
 	}
 
 	@Override
@@ -49,6 +63,7 @@ public class DBADapter extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RATE);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RAC);
 		onCreate(db);
 
 	}
@@ -137,9 +152,7 @@ public class DBADapter extends SQLiteOpenHelper {
 		return recordsList;
 	}
 
-	
-
-	// Rate
+	//rate
 	void addRate(GsRate gsrate) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -160,8 +173,9 @@ public class DBADapter extends SQLiteOpenHelper {
 		if (cursor.moveToFirst()) {
 			do {
 				GsRate listitem = new GsRate();
-				listitem.setRthesisid(cursor.getString(0));
-				listitem.setRate(cursor.getString(1));
+				listitem.setRid(Integer.parseInt(cursor.getString(0)));
+				listitem.setRthesisid(cursor.getString(1));
+				listitem.setRate(cursor.getString(2));
 
 				itemList.add(listitem);
 			} while (cursor.moveToNext());
@@ -204,5 +218,22 @@ public class DBADapter extends SQLiteOpenHelper {
 
 		// return the list of records
 		return recordsList;
+	}
+	
+	//RAC
+	
+	void addRate(GsRac gsrac) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(FIELD_RACFNAME, gsrac.getRac_fname());
+		values.put(FIELD_RACLNAME, gsrac.getRac_lname());
+		values.put(FIELD_RACRATE, gsrac.getRac_rate());
+		values.put(FIELD_RACCOMMENT, gsrac.getRac_comment());
+		values.put(FIELD_RACUID, gsrac.getRac_uid());
+		values.put(FIELD_RACTID, gsrac.getRac_tid());
+
+		// INSERTING ROW
+		db.insert(TABLE_RAC, null, values);
+		db.close();
 	}
 }

@@ -16,5 +16,18 @@
     <string name="desc">Abstract</string>
     <string name="rating">Rating</string>
     <string name="rate">Rate this thesis</string>
+    <string name="rateit">Rate this thesis!</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="comment">Comments</string>
+    <string name="fname">FirstName</string>
+    <string name="lname">Lastname</string>
+    <string name="no">no</string>
+    <string name="yes">Yes</string>
+    <string name="rac">Rating and Comments</string>
 
 </resources>

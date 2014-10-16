@@ -41,6 +41,8 @@ public class CollectionFragment extends Fragment {
 	ArrayList<GsThesis> thesislist;
 	ThesisAdapter adapter;
 	String x, thesis_id;
+	String racfname = "";
+	String raclname = "";
 
 	String[] from = new String[] { "title", "researcher" };
 	int[] to = new int[] { R.id.title, R.id.researcher };
@@ -69,6 +71,7 @@ public class CollectionFragment extends Fragment {
 		// check for Internet status
 		if (isInternetPresent) {
 			updateThesis();
+			updateRate();
 			Toast.makeText(getActivity(), "Thesis Updated!", Toast.LENGTH_SHORT)
 					.show();
 		}
@@ -108,6 +111,7 @@ public class CollectionFragment extends Fragment {
 		List<GsThesis> list = db.getThesisList();
 		for (int i = 0; i < list.size(); i++) {
 			GsThesis thesis = new GsThesis();
+			thesis.setId(list.get(i).id.toString());
 			thesis.setTitle(list.get(i).title.toString());
 			thesis.setResearcher(list.get(i).researcher.toString());
 			thesis.setAdviser(list.get(i).adviser.toString());
@@ -146,15 +150,8 @@ public class CollectionFragment extends Fragment {
 									.get(i).getString("abstract")));
 
 					x = listahan.get(i).getObjectId();
-					
-					List<GsRate> listThesisId = db.findThesisId(x);
-					Toast.makeText(getActivity(), listThesisId.size() + "", Toast.LENGTH_SHORT)
-					.show();
-					if(listThesisId.size() == 0) {
-						updateRate(x);
-					} else {
-						
-					}
+
+				
 				}
 
 			}
@@ -163,10 +160,10 @@ public class CollectionFragment extends Fragment {
 
 	}
 
-	public void updateRate(final String x) {
+	public void updateRate() {
 		
+
 		ParseQuery<ParseObject> query1 = new ParseQuery<ParseObject>("Rating");
-		query1.whereNotEqualTo("thesis_id", x);
 		query1.findInBackground(new FindCallback<ParseObject>() {
 
 			@Override
@@ -174,20 +171,15 @@ public class CollectionFragment extends Fragment {
 				frated = 0;
 				rated = 0;
 				for (int c = 0; c < rate.size(); c++) {
-					rated = rated + rate.get(c).getInt("rate");
+					db.addRate(new GsRac(racfname, raclname, rate.get(c)
+							.getInt("rate"), rate.get(c).getString("comment"),
+							rate.get(c).getString("user_id"), rate.get(c).getString("thesis_id")));
 				}
-				frated = rated / rate.size();
-				Toast.makeText(getActivity(), frated + "", Toast.LENGTH_LONG)
-						.show();
-			
-					db.addRate(new GsRate(rate.get(0).getString("thesis_id"),
-							frated + ""));
-			
-			
 				
+
 			}
 		});
-		
+
 	}
 
 	@Override
@@ -211,8 +203,8 @@ public class CollectionFragment extends Fragment {
 
 				if (listTitle.size() == 0) {
 					Toast.makeText(getActivity(),
-							"You enter a word doesnt exist!", Toast.LENGTH_SHORT)
-							.show();
+							"You enter a word doesnt exist!",
+							Toast.LENGTH_SHORT).show();
 					populatelist();
 				} else if (listTitle.size() > 0) {
 					for (int i = 0; i < listTitle.size(); i++) {
@@ -238,9 +230,9 @@ public class CollectionFragment extends Fragment {
 								});
 					}
 
-				}  else if (query == null || query == "") {
+				} else if (query == null || query == "") {
 					Toast.makeText(getActivity(),
-							"Please Enter any keyword(s)!", Toast.LENGTH_LONG)
+							"Please Enter any keyword(s)!", Toast.LENGTH_SHORT)
 							.show();
 					populatelist();
 				}

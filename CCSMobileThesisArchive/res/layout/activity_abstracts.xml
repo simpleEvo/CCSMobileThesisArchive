@@ -68,27 +68,50 @@
             android:padding="10dip"
             android:text="@string/rating"
             android:textSize="17sp" />
- <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" >
-        <RatingBar
-            android:id="@+id/ratingBar"
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="0.0"
+                android:stepSize="0.5" />
+
+            <TextView
+                android:id="@+id/rate"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="13dip"
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numStars="5"
-            android:rating="0.0"
-            android:stepSize="0.5" />
-
-         <TextView
-            android:id="@+id/rate"
+            android:onClick="onRate"
+            android:text="@string/rateit" />
+        
+        <TextView
+            android:id="@+id/rac"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
-            android:layout_marginBottom="15dip"
-            android:layout_marginLeft="10dip"
-            android:textSize="20sp" />
-        </LinearLayout>
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="10dip"
+            android:padding="10dip"
+            android:text="@string/rac"
+            android:textSize="17sp" />
+        
+        <ListView 
+            android:id="@+id/lstview"
+            android:layout_width="match_parent" 
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </ScrollView>
