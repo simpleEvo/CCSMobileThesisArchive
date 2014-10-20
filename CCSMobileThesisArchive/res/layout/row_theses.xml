@@ -4,23 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="300dip"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dip"
+        android:layout_weight="1"
+        android:textSize="20sp" />
 
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="200dip"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dip"
-            android:layout_weight="1"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/researcher"
-            android:layout_width="200dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="20sp" />
-
-   
+    <TextView
+        android:id="@+id/researcher"
+        android:layout_width="300dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:textSize="14sp" />
 
 </LinearLayout>

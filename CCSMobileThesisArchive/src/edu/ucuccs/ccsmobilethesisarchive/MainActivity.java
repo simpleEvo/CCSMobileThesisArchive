@@ -33,7 +33,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		actionBar.addTab(actionBar.newTab().setText("  Home").setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText("  Theses").setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText("  About").setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText("  FAQS").setTabListener(this));
 
 		/**
 		 * on swiping the viewpager make respective tab selected

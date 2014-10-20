@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <TextView
@@ -21,10 +21,25 @@
             android:textSize="20sp" />
 
         <TextView
+            android:layout_width="300dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dip"
+            android:text="@string/researcher"
+            
+            android:textSize="12sp" />
+
+        <TextView
             android:id="@+id/researcher"
             android:layout_width="300dip"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dip"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="300dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dip"
+            android:text="@string/adviser"
             android:textSize="12sp" />
 
         <TextView
@@ -69,7 +84,6 @@
             android:text="@string/rating"
             android:textSize="17sp" />
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -86,19 +100,13 @@
             <TextView
                 android:id="@+id/rate"
                 android:layout_width="wrap_content"
-                android:layout_marginTop="13dip"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="13dip"
+                android:text="@string/zero"
                 android:textSize="20sp" />
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnRate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRate"
-            android:text="@string/rateit" />
-        
-        <TextView
             android:id="@+id/rac"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,11 +115,6 @@
             android:padding="10dip"
             android:text="@string/rac"
             android:textSize="17sp" />
-        
-        <ListView 
-            android:id="@+id/lstview"
-            android:layout_width="match_parent" 
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </ScrollView>

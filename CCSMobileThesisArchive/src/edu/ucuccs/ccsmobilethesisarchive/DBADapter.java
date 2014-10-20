@@ -23,9 +23,6 @@ public class DBADapter extends SQLiteOpenHelper {
 	private static final String FIELD_ADVISER = "thesis_adviser";
 	private static final String FIELD_YEAR = "thesis_year";
 	private static final String FIELD_ABSTRACT = "thesis_abstract";
-	private static final String FIELD_RATING = "rate_rating";
-	private static final String FIELD_TID = "rate_thesisid";
-	private static final String FIELD_RID = "rate_id";
 	private static final String FIELD_RAC = "rac_id";
 	private static final String FIELD_RACFNAME = "rac_fname";
 	private static final String FIELD_RACLNAME = "rac_lname";
@@ -46,10 +43,6 @@ public class DBADapter extends SQLiteOpenHelper {
 				+ FIELD_RESEARCHER + " TEXT," + FIELD_ADVISER + " TEXT,"
 				+ FIELD_YEAR + " TEXT," + FIELD_ABSTRACT + " TEXT" + ")";
 		db.execSQL(CREATE_LISTITEM_TABLE);
-		String CREATE_LISTRATE_TABLE = "CREATE TABLE " + TABLE_RATE + "("
-				+ FIELD_RID + " INTEGER PRIMARY KEY," + FIELD_TID + " TEXT,"
-				+ FIELD_RATING + " TEXT " + ")";
-		db.execSQL(CREATE_LISTRATE_TABLE);
 		String CREATE_RAC_TABLE = "CREATE TABLE " + TABLE_RAC + "(" + FIELD_RAC
 				+ " INTEGER PRIMARY KEY," + FIELD_RACFNAME + " TEXT,"
 				+ FIELD_RACLNAME + " TEXT, " + FIELD_RACCOMMENT + " TEXT, "
@@ -62,7 +55,6 @@ public class DBADapter extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// TODO Auto-generated method stub
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RATE);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RAC);
 		onCreate(db);
 
@@ -152,73 +144,7 @@ public class DBADapter extends SQLiteOpenHelper {
 		return recordsList;
 	}
 
-	//rate
-	void addRate(GsRate gsrate) {
-		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(FIELD_TID, gsrate.getRthesisid());
-		values.put(FIELD_RATING, gsrate.getRate());
-
-		// INSERTING ROW
-		db.insert(TABLE_RATE, null, values);
-		db.close();
-	}
-
-	public List<GsRate> getRateList() {
-		List<GsRate> itemList = new ArrayList<GsRate>();
-		String selectQuery = "SELECT  * FROM " + TABLE_RATE;
-
-		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery(selectQuery, null);
-		if (cursor.moveToFirst()) {
-			do {
-				GsRate listitem = new GsRate();
-				listitem.setRid(Integer.parseInt(cursor.getString(0)));
-				listitem.setRthesisid(cursor.getString(1));
-				listitem.setRate(cursor.getString(2));
-
-				itemList.add(listitem);
-			} while (cursor.moveToNext());
-		}
-		return itemList;
-	}
-
-	public List<GsRate> findThesisId(String searchTerm) {
-
-		List<GsRate> recordsList = new ArrayList<GsRate>();
-
-		// select query
-		String sql = "";
-		sql += "SELECT * FROM " + TABLE_RATE;
-		sql += " WHERE " + FIELD_TID + " LIKE '%" + searchTerm + "%'";
-		sql += " ORDER BY " + FIELD_RATING + " DESC";
-
-		SQLiteDatabase db = this.getWritableDatabase();
-
-		// execute the query
-		Cursor cursor = db.rawQuery(sql, null);
-
-		// looping through all rows and adding to list
-		if (cursor.moveToFirst()) {
-			do {
-
-				// int productId =
-				// Integer.parseInt(cursor.getString(cursor.getColumnIndex(fieldProductId)));
-				GsRate listitem = new GsRate();
-				listitem.setRthesisid(cursor.getString(1));
-				listitem.setRate(cursor.getString(2));
-				recordsList.add(listitem);
-
-				// add to list
-			} while (cursor.moveToNext());
-		}
-
-		cursor.close();
-		db.close();
-
-		// return the list of records
-		return recordsList;
-	}
+	
 	
 	//RAC
 	

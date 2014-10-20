@@ -38,7 +38,7 @@ public class ThesisAdapter extends ArrayAdapter<GsThesis> {
 		}
 
 		holder.title.setText(thesislist.get(position).getTitle());
-		holder.reseacher.setText(thesislist.get(position).getResearcher());
+		holder.reseacher.setText(thesislist.get(position).getAbs());
 
 		return v;
 

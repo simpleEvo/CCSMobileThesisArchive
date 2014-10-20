@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import edu.ucuccs.ccsmobilethesisarchive.AboutFragment;
 import edu.ucuccs.ccsmobilethesisarchive.CollectionFragment;
-import edu.ucuccs.ccsmobilethesisarchive.FAQSFragment;
 import edu.ucuccs.ccsmobilethesisarchive.HomeFragment;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
@@ -24,8 +23,6 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 			return new CollectionFragment();
 		case 2:
 			return new AboutFragment();
-		case 3:
-			return new FAQSFragment();
 		}
 
 		return null;

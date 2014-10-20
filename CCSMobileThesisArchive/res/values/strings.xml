@@ -28,7 +28,16 @@
     <string name="lname">Lastname</string>
     <string name="no">no</string>
     <string name="yes">Yes</string>
-    <string name="rac">Rating and Comments</string>
+    <string name="rac">View Rating and Comments</string>
     <string name="flname">Full Name</string>
+    <string name="zero">0.0</string>
+
+    <color name="red">#ffff0000</color>
+    <color name="green">#ff00ff00</color>
+
+    <string name="title_activity_com_rate">ComRate</string>
+    <string name="researcher">Researcher:</string>
+    <string name="adviser">Adviser:</string>
+    
 
 </resources>

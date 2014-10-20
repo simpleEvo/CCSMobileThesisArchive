@@ -3,6 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+
+    <TextView
+        android:id="@+id/txtC"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dip"
+        android:layout_marginRight="7dip"
+        android:gravity="center"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txtA"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dip"
+        android:layout_marginRight="7dip"
+        android:gravity="center"
+        android:textSize="15sp" />
 
 </LinearLayout>
