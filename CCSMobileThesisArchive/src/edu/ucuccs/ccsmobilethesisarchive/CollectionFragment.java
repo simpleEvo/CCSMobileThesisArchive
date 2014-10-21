@@ -65,6 +65,7 @@ public class CollectionFragment extends Fragment {
 		thesislist = new ArrayList<GsThesis>();
 		Parse.initialize(getActivity(), APPLICATION_ID, CLIENT_KEY);
 		lstview = (ListView) rootView.findViewById(R.id.listView1);
+
 		adapter = new ThesisAdapter(getActivity(), R.layout.row_theses,
 				thesislist);
 		thesislist.clear();
@@ -113,9 +114,7 @@ public class CollectionFragment extends Fragment {
 
 	public void populatelist() {
 		List<GsThesis> list = db.getThesisList();
-		if(list.size() == 0) {
-			
-		} else {
+	
 		for (int i = 0; i < list.size(); i++) {
 			GsThesis thesis = new GsThesis();
 			thesis.setId(list.get(i).id.toString());
@@ -124,6 +123,7 @@ public class CollectionFragment extends Fragment {
 			thesis.setAdviser(list.get(i).adviser.toString());
 			thesis.setYear(list.get(i).year.toString());
 			thesis.setAbs(list.get(i).abs.toString());
+			
 			thesislist.add(thesis);
 
 			Collections.sort(thesislist, new Comparator<GsThesis>() {
@@ -135,7 +135,7 @@ public class CollectionFragment extends Fragment {
 			});
 		}
 		adapter.notifyDataSetChanged();
-	}
+	
 	}
 
 	public void updateThesis() {
@@ -215,6 +215,7 @@ public class CollectionFragment extends Fragment {
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy");
 						String year = formatter.format(today);
+						
 						db.addThesis(new GsThesis(
 								listahan.get(i).getObjectId(), listahan.get(i)
 										.getString("title"), listahan.get(i)
